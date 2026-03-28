@@ -1,0 +1,65 @@
+# ─── OS FILES ───────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ─── ENVIRONMENT & SECRETS ──────────────────────
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+*.secret
+secrets.json
+config.secret.js
+
+# ─── NODE / NPM ──────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+
+# ─── BUILD OUTPUTS ───────────────────────────────
+dist/
+build/
+.cache/
+.parcel-cache/
+.next/
+out/
+
+# ─── EDITOR & IDE ────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# ─── LOGS ────────────────────────────────────────
+logs/
+*.log
+
+# ─── UPLOADED USER IMAGES ────────────────────────
+# (These are stored in localStorage/browser — not committed)
+uploads/
+user-uploads/
+
+# ─── ADMIN CREDENTIALS (never commit passwords) ──
+admin-config.json
+auth.json
+credentials.json
+
+# ─── TEMP / MISC ─────────────────────────────────
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup

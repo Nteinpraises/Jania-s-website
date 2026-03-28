@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yosimbom Jania | EcoHub & The Girl Charge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">Jania<span>.</span></div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('ecohub')" id="nav-ecohub">EcoHub</a></li>
+    <li><a onclick="showPage('girlcharge')" id="nav-girlcharge">Girl Charge</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('blog')" id="nav-blog">Blog</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact" class="cta-nav">Get Involved</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMobile()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');toggleMobile()">Home</a>
+  <a onclick="showPage('ecohub');toggleMobile()">EcoHub</a>
+  <a onclick="showPage('girlcharge');toggleMobile()">Girl Charge</a>
+  <a onclick="showPage('about');toggleMobile()">About</a>
+  <a onclick="showPage('blog');toggleMobile()">Blog</a>
+  <a onclick="showPage('contact');toggleMobile()">Get Involved</a>
+  <a onclick="showPage('admin-login');toggleMobile()" style="color:var(--gold-light)">Admin ⚙️</a>
+</div>
+
+<!-- ═══════════════════ HOME ═══════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge fade-up">Youth Leader · Climate Advocate · Gender Equality Champion</div>
+        <h1 class="hero-name fade-up-2">
+          <span class="accent2">Yosimbom</span>
+          <span class="accent">Jania.</span>
+        </h1>
+        <p class="hero-tagline fade-up-3">Empowering Cameroon's Youth Through Climate Action & Gender Equality — building the next generation of fearless leaders.</p>
+        <div class="hero-stats fade-up-4">
+          <div class="stat"><div class="stat-num">1,000+</div><div class="stat-label">Climate Advocates Trained</div></div>
+          <div class="stat"><div class="stat-num">1,500+</div><div class="stat-label">Girls Empowered</div></div>
+          <div class="stat"><div class="stat-num">5,000+</div><div class="stat-label">Young People Reached</div></div>
+        </div>
+        <div class="hero-ctas fade-up-4">
+          <button class="btn btn-primary" onclick="showPage('ecohub')">🌱 Explore EcoHub</button>
+          <button class="btn btn-purple" onclick="showPage('girlcharge')">⚡ Explore Girl Charge</button>
+          <button class="btn btn-outline" onclick="showPage('about')">Meet Jania</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrap" id="hero-img-wrap">
+          <div class="hero-img-placeholder" id="hero-img-placeholder">
+            <span class="icon">👩🏾</span>
+            <span><img src="" alt="">Jania's photo appears here</span>
+          </div>
+        </div>
+        <div class="org-cards">
+          <div class="org-mini-card eco" onclick="showPage('ecohub')">
+            <div class="org-mini-icon" id="eco-logo-mini">🌿</div>
+            <div class="org-mini-name">EcoHub</div>
+            <div class="org-mini-tag">Climate Action</div>
+          </div>
+          <div class="org-mini-card gc" onclick="showPage('girlcharge')">
+            <div class="org-mini-icon" id="gc-logo-mini">⚡</div>
+            <div class="org-mini-name">Girl Charge</div>
+            <div class="org-mini-tag">Gender Equality</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT STRIP -->
+  <div class="impact-strip">
+    <div class="impact-inner">
+      <div class="impact-item">
+        <div class="impact-num green">7+</div>
+        <div class="impact-label">Years of Community Service</div>
+        <div class="impact-sub">Since age 14</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num purple">4</div>
+        <div class="impact-label">International Conferences</div>
+        <div class="impact-sub">Rwanda · Taiwan · Morocco · World Bank</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num gold">5+</div>
+        <div class="impact-label">Awards & Recognitions</div>
+        <div class="impact-sub">2024–2025</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num green">2</div>
+        <div class="impact-label">Organizations Founded</div>
+        <div class="impact-sub">EcoHub · Girl Charge</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORG OVERVIEW -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-tag">Two Missions, One Vision</div>
+        <h2 class="section-title">Building Cameroon's Future,<br>One Young Person at a Time</h2>
+        <p class="section-subtitle">Two dynamic organizations led by one visionary leader, working in tandem to create lasting change in climate action and gender equality.</p>
+      </div>
+      <div class="orgs-grid">
+        <div class="org-card eco" onclick="showPage('ecohub')">
+          <div class="org-card-deco"></div>
+          <div class="org-card-logo-placeholder" id="eco-logo-card">🌿</div>
+          <h3>EcoHub</h3>
+          <p>A comprehensive platform empowering youth aged 15–25 with climate action knowledge, renewable energy skills, and green entrepreneurship tools. Bridging the knowledge gap between young innovators and global climate solutions.</p>
+          <span class="org-card-link">Explore EcoHub →</span>
+        </div>
+        <div class="org-card gc" onclick="showPage('girlcharge')">
+          <div class="org-card-deco"></div>
+          <div class="org-card-logo-placeholder" id="gc-logo-card">⚡</div>
+          <h3>The Girl Charge</h3>
+          <p>A movement empowering young girls aged 15–24 in the Northwest region with knowledge, skills, and a vibrant support network. Over 1,500 girls already part of a community driving personal and professional excellence.</p>
+          <span class="org-card-link">Explore Girl Charge →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK ABOUT -->
+  <section class="section" style="background:var(--green-pale); padding-top:60px; padding-bottom:60px;">
+    <div class="section-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+      <div>
+        <div class="section-tag">Meet the Founder</div>
+        <h2 class="section-title">A 21-Year-Old Changing<br>the Story for African Youth</h2>
+        <p style="color:var(--mid);line-height:1.8;margin-bottom:24px;">With 7+ years of community service, Jania has trained over 1,000 climate advocates, built a community of 1,500+ girls, and spoken at international conferences from Kigali to Taipei — all before turning 22.</p>
+        <button class="btn btn-primary" onclick="showPage('about')">Read Her Full Story →</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="background:white;border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+          <span style="font-size:1.8rem;">🏆</span>
+          <div>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--dark);">Outstanding Young Leader 2024</div>
+            <div style="font-size:0.8rem;color:var(--muted);">African Future Leadership Awards</div>
+          </div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+          <span style="font-size:1.8rem;">🌍</span>
+          <div>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--dark);">Cameroon Youth Delegate</div>
+            <div style="font-size:0.8rem;color:var(--muted);">Commonwealth Youth & Gender Equality Network</div>
+          </div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+          <span style="font-size:1.8rem;">⚡</span>
+          <div>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--dark);">Bold Girlies Impact Award 2025</div>
+            <div style="font-size:0.8rem;color:var(--muted);">AAGYW Cameroon</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATEST BLOG PREVIEW -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+        <div>
+          <div class="section-tag">Latest from the Blog</div>
+          <h2 class="section-title" style="margin-bottom:0;">Insights & Stories</h2>
+        </div>
+        <button class="btn btn-outline" style="color:var(--green);border-color:var(--green);" onclick="showPage('blog')">View All Posts →</button>
+      </div>
+      <div class="blog-grid" id="home-blog-preview"></div>
+    </div>
+  </section>
+
+  <!-- GET INVOLVED CTA -->
+  <section style="background:linear-gradient(135deg,var(--dark),var(--charcoal));padding:80px 5%;text-align:center;">
+    <div style="max-width:600px;margin:0 auto;">
+      <div style="font-size:3rem;margin-bottom:20px;">🤝</div>
+      <h2 style="font-family:'Playfair Display',serif;color:var(--white);font-size:2rem;margin-bottom:14px;">Ready to Make a Difference?</h2>
+      <p style="color:rgba(255,255,255,0.6);margin-bottom:32px;line-height:1.7;">Whether you want to volunteer, partner, donate, or simply connect — we're building something remarkable and we'd love your support.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="showPage('contact')">Get Involved Today</button>
+        <a href="https://wa.me/237679443906" target="_blank" class="btn btn-outline" style="color:var(--soft)">📱 WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner" id="footer-home"><!-- rendered by JS --></div>
+  </footer>
+</div>
+
+<!-- ═══════════════════ ECOHUB ═══════════════════ -->
+<div class="page" id="page-ecohub">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="section-tag" style="color:var(--green-light);">EcoHub · Since 2024</div>
+      <h1>Building the Next Generation<br>of <em>Climate Leaders</em></h1>
+      <p>A comprehensive platform empowering youth aged 15–25 with the knowledge, tools, and connections to drive real climate action in Cameroon and beyond.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="https://wa.me/237679443906" target="_blank" class="btn btn-primary">Join EcoHub</a>
+        <button class="btn btn-outline" onclick="showPage('contact')">Partner With Us</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-tag">What We Do</div>
+        <h2 class="section-title">Everything a Young Climate<br>Advocate Needs</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h4>Resource Library</h4>
+          <p>Access a vast collection of reports, articles, webinars, and research materials on climate action, sustainability, and green innovation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h4>Collaboration Workspace</h4>
+          <p>Organize teams, collaborate with other young climate innovators, and manage projects that create real environmental impact.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h4>Climate Olympiads</h4>
+          <p>Engage in thought-provoking competitions on climate themes for youth aged 15–25, pushing boundaries and sparking innovation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💡</div>
+          <h4>Green Entrepreneurship</h4>
+          <p>Training on renewable energy, sustainable business models, and green entrepreneurship to turn ideas into impactful ventures.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h4>Funder Connections</h4>
+          <p>Connect with funders, potential partners, and global stakeholders who are invested in youth-led climate solutions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h4>Project Showcase</h4>
+          <p>Showcase your projects and achievements to a global audience, gaining visibility, feedback, and support from the climate community.</p>
+        </div>
+      </div>
+
+      <div class="mission-block">
+        <div class="mission-text">
+          <h3>Our Mission</h3>
+          <p style="margin-bottom:20px;">EcoHub aims to bridge the knowledge gap, facilitate collaboration, and amplify the impact of climate advocates worldwide. We believe that young people are not just the leaders of tomorrow — they are the solution-makers of today.</p>
+          <p>Founded in 2024 and already training 1,000+ climate advocates, EcoHub is growing into a powerhouse for Cameroon's green future.</p>
+        </div>
+        <div class="mission-visual">
+          <div class="mission-stat-card">
+            <div class="mission-stat-num">1,000+</div>
+            <div class="mission-stat-label">Young climate advocates trained in less than one year</div>
+          </div>
+          <div class="mission-stat-card">
+            <div class="mission-stat-num">15–25</div>
+            <div class="mission-stat-label">Age range of youth we actively engage and empower</div>
+          </div>
+          <div class="mission-stat-card">
+            <div class="mission-stat-num">2024</div>
+            <div class="mission-stat-label">Founded — and already making waves across Cameroon</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:40px 0;">
+        <div class="section-tag">Ready to Join?</div>
+        <h2 class="section-title">Become a Climate Leader Today</h2>
+        <p class="section-subtitle" style="margin:0 auto 28px;">Join the EcoHub community and start making a difference. Whether you're a student, innovator, or community organizer — there's a place for you here.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://wa.me/237679443906" target="_blank" class="btn btn-primary">📱 Join via WhatsApp</a>
+          <button class="btn btn-outline" style="color:var(--green);border-color:var(--green);" onclick="showPage('contact')">Send an Enquiry</button>
+        </div>
+        <p style="color:var(--muted);font-size:0.85rem;margin-top:16px;">📞 +237 679 443 906</p>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="footer-inner" id="footer-eco"><!-- JS --></div></footer>
+</div>
+
+<!-- ═══════════════════ GIRL CHARGE ═══════════════════ -->
+<div class="page" id="page-girlcharge">
+  <div class="page-hero gc-hero">
+    <div class="page-hero-inner">
+      <div class="section-tag" style="color:var(--purple-light);">The Girl Charge · Since 2025</div>
+      <h1>Where Young Girls Rise,<br><em>Lead, and Thrive</em></h1>
+      <p>Empowering girls aged 15–24 in the Northwest region with knowledge, skills, and a powerful community of 1,500+ changemakers ready to break barriers.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="https://wa.me/237679443906" target="_blank" class="btn btn-purple">Join Girl Charge</a>
+        <button class="btn btn-outline" onclick="showPage('contact')">Partner With Us</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-inner">
+      <!-- Mission & Vision -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:60px;">
+        <div style="background:var(--purple-pale);border-radius:20px;padding:36px;">
+          <div style="font-size:2rem;margin-bottom:12px;">🎯</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--dark);margin-bottom:12px;">Our Mission</h3>
+          <p style="color:var(--mid);line-height:1.8;font-size:0.95rem;">Empower young girls (15–24 years) with knowledge, skills, and opportunities to excel in their personal and professional lives, fostering a supportive community that promotes growth, equality, and positive change.</p>
+        </div>
+        <div style="background:linear-gradient(135deg,#1a0d2b,#2d1a4a);border-radius:20px;padding:36px;">
+          <div style="font-size:2rem;margin-bottom:12px;">🌟</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--white);margin-bottom:12px;">Our Vision</h3>
+          <p style="color:rgba(255,255,255,0.65);line-height:1.8;font-size:0.95rem;">A society where young girls are confident, informed, and equipped to reach their full potential — breaking barriers and leading positive change in their communities and beyond.</p>
+        </div>
+      </div>
+
+      <!-- Approach -->
+      <div class="section-header">
+        <div class="section-tag purple">Our Approach</div>
+        <h2 class="section-title">Five Pillars of Girl Power</h2>
+      </div>
+      <div class="approach-grid gc">
+        <div class="approach-item">
+          <div class="approach-num">01 / INFORMATION</div>
+          <h4>Information Dissemination</h4>
+          <p>Providing access to relevant information, resources, and tools on personal development, career advancement, and community engagement to keep girls informed and empowered.</p>
+        </div>
+        <div class="approach-item">
+          <div class="approach-num">02 / CAPACITY</div>
+          <h4>Capacity Building</h4>
+          <p>Offering training, mentorship, and skill-building programs to enhance young girls' capabilities, confidence, and ability to navigate personal and professional challenges.</p>
+        </div>
+        <div class="approach-item">
+          <div class="approach-num">03 / COMMUNITY</div>
+          <h4>Community Building</h4>
+          <p>Fostering a supportive network of young girls, mentors, and role models — promoting collaboration, mutual support, and collective growth across the Northwest region.</p>
+        </div>
+        <div class="approach-item">
+          <div class="approach-num">04 / ADVOCACY</div>
+          <h4>Advocacy</h4>
+          <p>Raising awareness about issues affecting young girls and actively promoting equality, inclusion, and social justice at local, national, and international levels.</p>
+        </div>
+        <div class="approach-item">
+          <div class="approach-num">05 / PARTNERSHIPS</div>
+          <h4>Partnerships</h4>
+          <p>Collaborating with organizations, stakeholders, and influencers to amplify impact, leverage resources, and create meaningful opportunities for young girls to shine.</p>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div style="margin-top:60px;">
+        <div class="section-tag purple">What We Stand For</div>
+        <h2 class="section-title">Our Core Values</h2>
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-icon">💪</div>
+            <div class="value-name">Empowerment</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🌈</div>
+            <div class="value-name">Inclusion</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">🤝</div>
+            <div class="value-name">Community</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">⚖️</div>
+            <div class="value-name">Integrity</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div style="background:linear-gradient(135deg,#1a0d2b,#2d1a4a);border-radius:24px;padding:48px;margin-top:48px;text-align:center;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+          <div><div style="font-family:'Space Mono',monospace;font-size:2.5rem;color:var(--purple-light);font-weight:700;">1,500+</div><div style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:6px;">Girls in the Community</div></div>
+          <div><div style="font-family:'Space Mono',monospace;font-size:2.5rem;color:var(--gold-light);font-weight:700;">15–24</div><div style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:6px;">Age Range Served</div></div>
+          <div><div style="font-family:'Space Mono',monospace;font-size:2.5rem;color:var(--green-light);font-weight:700;">2025</div><div style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-top:6px;">Founded & Growing</div></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:50px 0 0;">
+        <h2 class="section-title">Ready to Be Charged?</h2>
+        <p class="section-subtitle" style="margin:0 auto 28px;">Join over 1,500 young girls already part of The Girl Charge community in the Northwest region. Your journey to greatness starts here.</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://wa.me/237679443906" target="_blank" class="btn btn-purple">📱 Join via WhatsApp</a>
+          <button class="btn btn-outline" style="color:var(--purple);border-color:var(--purple);" onclick="showPage('contact')">Get In Touch</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="footer-inner" id="footer-gc"><!-- JS --></div></footer>
+</div>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<div class="page" id="page-about">
+  <div class="page-hero" style="background:linear-gradient(135deg,#1a1000 0%,#2d2200 60%,#0d0a00 100%);">
+    <div class="page-hero-inner">
+      <div class="section-tag" style="color:var(--gold-light);">The Founder</div>
+      <h1 style="font-size:clamp(2rem,4vw,3.2rem);">Yosimbom Jania —<br>A Leader for <em>Our Generation</em></h1>
+      <p>21 years old. 7+ years of impact. One extraordinary vision for a better Cameroon.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="founder-grid">
+        <div class="founder-img-wrap">
+          <div class="founder-img-frame" id="about-img-frame">
+            <div class="founder-img-placeholder" id="about-img-placeholder">
+              <span class="icon">👩🏾‍💼</span>
+              <span style="font-size:0.85rem;">Jania's portrait photo<br>appears here</span>
+            </div>
+          </div>
+          <div class="founder-badge-strip">
+            <span class="tag-badge green">Youth Leader</span>
+            <span class="tag-badge purple">Climate Advocate</span>
+            <span class="tag-badge gold">Gender Equality Champion</span>
+            <span class="tag-badge green">Social Entrepreneur</span>
+            <span class="tag-badge purple">International Speaker</span>
+          </div>
+        </div>
+        <div class="founder-text">
+          <div class="section-tag gold">About Jania</div>
+          <h2 class="section-title">Driven by Purpose,<br>Fueled by Passion</h2>
+          <p class="founder-bio">Yosimbom Jania is a remarkable 21-year-old leader making waves in youth engagement, climate action, and gender equality. With over 7 years of experience in community service, she has established herself as a passionate advocate for girls' rights and climate action across Cameroon and beyond.</p>
+          <p class="founder-bio">As Team Lead of EcoHub, she has trained over 1,000 young climate advocates in less than a year, empowering youth — especially girls — with knowledge on renewable energy and green entrepreneurship. As Convener of The Girl Charge, she has built a thriving community of 1,500+ girls in the Northwest region engaged in community service and development.</p>
+          <p class="founder-bio">Jania's vision is clear: a world where young people are active solution-thinkers and changemakers, not passive observers. Through her work, she is turning that vision into reality — one young person at a time.</p>
+
+          <h3 style="font-weight:700;font-size:1rem;color:var(--dark);margin-bottom:16px;margin-top:8px;">🏆 Awards & Recognition</h3>
+          <div class="awards-list">
+            <div class="award-item">
+              <span class="award-icon">🏆</span>
+              <div><div class="award-name">Outstanding Young Leader of the Year 2024</div><div class="award-org">African Future Leadership, Public Service & Entrepreneurship Awards</div></div>
+            </div>
+            <div class="award-item">
+              <span class="award-icon">🏆</span>
+              <div><div class="award-name">Impact Young Leader — Cameroon Heroes Impact Award 2024</div><div class="award-org">Cameroon Heroes Foundation</div></div>
+            </div>
+            <div class="award-item">
+              <span class="award-icon">🏆</span>
+              <div><div class="award-name">Bold Girlies Impact Award 2025</div><div class="award-org">AAGYW Cameroon</div></div>
+            </div>
+            <div class="award-item">
+              <span class="award-icon">🥈</span>
+              <div><div class="award-name">Silver Medal Winner</div><div class="award-org">SPSC, London</div></div>
+            </div>
+            <div class="award-item">
+              <span class="award-icon">🥉</span>
+              <div><div class="award-name">SPSC Bronze Award 2024</div><div class="award-org">SPSC, London</div></div>
+            </div>
+            <div class="award-item">
+              <span class="award-icon">🌟</span>
+              <div><div class="award-name">2× Nominee — Cameroon Youth Awards & Cameroon Impact Awards 2024</div><div class="award-org">National Recognition</div></div>
+            </div>
+          </div>
+
+          <div class="conferences">
+            <div class="conf-title">International Conferences</div>
+            <div class="conf-list">
+              <div class="conf-item">Women Deliver 2023 Conference — Kigali, Rwanda</div>
+              <div class="conf-item">RightsCon 2025 — Taipei, Taiwan</div>
+              <div class="conf-item">Youth Sustainable Development Conference 2024 — Rabat, Morocco</div>
+              <div class="conf-item">The World Bank & West African Think Tank WATHI</div>
+            </div>
+          </div>
+
+          <div style="margin-top:32px;">
+            <h3 style="font-weight:700;font-size:1rem;color:var(--dark);margin-bottom:14px;">🎖️ Leadership Roles</h3>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="background:var(--green-pale);border-radius:10px;padding:14px 18px;">
+                <div style="font-weight:600;font-size:0.92rem;color:var(--dark);">Youth President</div>
+                <div style="font-size:0.82rem;color:var(--muted);">Girls Get Equal Network — Plan International Cameroon</div>
+              </div>
+              <div style="background:var(--purple-pale);border-radius:10px;padding:14px 18px;">
+                <div style="font-weight:600;font-size:0.92rem;color:var(--dark);">Cameroon Youth Delegate</div>
+                <div style="font-size:0.82rem;color:var(--muted);">Commonwealth Youth and Gender Equality Network</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="footer-inner" id="footer-about"><!-- JS --></div></footer>
+</div>
+
+<!-- ═══════════════════ BLOG ═══════════════════ -->
+<div class="page" id="page-blog">
+  <div class="page-hero" style="background:linear-gradient(135deg,#0d1a12,#1e2d24,#0d1a12);">
+    <div class="page-hero-inner">
+      <div class="section-tag" style="color:var(--gold-light);">Stories & Insights</div>
+      <h1>From the Field — Our Blog</h1>
+      <p>Perspectives on climate action, girls' empowerment, youth leadership, and the work of building a better Cameroon.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-inner">
+      <div style="display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;" id="blog-filters">
+        <button class="tag-badge green" style="cursor:pointer;padding:8px 18px;font-size:0.85rem;" onclick="filterBlog('all')" id="filter-all">All Posts</button>
+        <button class="tag-badge" style="background:var(--green-pale);color:var(--green);cursor:pointer;padding:8px 18px;font-size:0.85rem;" onclick="filterBlog('eco')" id="filter-eco">EcoHub</button>
+        <button class="tag-badge purple" style="cursor:pointer;padding:8px 18px;font-size:0.85rem;" onclick="filterBlog('gc')" id="filter-gc">Girl Charge</button>
+        <button class="tag-badge" style="background:#f0f4f8;color:var(--mid);cursor:pointer;padding:8px 18px;font-size:0.85rem;" onclick="filterBlog('general')" id="filter-general">General</button>
+      </div>
+      <div class="blog-grid" id="blog-grid-main"></div>
+    </div>
+  </section>
+
+  <footer><div class="footer-inner" id="footer-blog"><!-- JS --></div></footer>
+</div>
+
+<!-- ═══════════════════ BLOG SINGLE ═══════════════════ -->
+<div class="page" id="page-blog-single">
+  <div class="blog-single" id="blog-single-content"></div>
+  <footer><div class="footer-inner" id="footer-bs"><!-- JS --></div></footer>
+</div>
+
+<!-- ═══════════════════ CONTACT / GET INVOLVED ═══════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-hero" style="background:linear-gradient(135deg,#0d1a12,#1e2d24);">
+    <div class="page-hero-inner">
+      <div class="section-tag" style="color:var(--green-light);">Let's Connect</div>
+      <h1>Get Involved —<br><em>Every Hand Counts</em></h1>
+      <p>Whether you're a student, organization, funder, or passionate individual — there's a way for you to be part of this movement.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-inner">
+      <!-- Ways to Involve -->
+      <div class="section-header">
+        <div class="section-tag">How You Can Help</div>
+        <h2 class="section-title">Many Ways to Make an Impact</h2>
+      </div>
+      <div class="involve-grid">
+        <div class="involve-card green">
+          <div class="involve-icon">🙌</div>
+          <h3>Volunteer</h3>
+          <p>Bring your skills and time to support EcoHub or Girl Charge programs, events, and community outreach initiatives.</p>
+          <a href="https://wa.me/237679443906" target="_blank" class="btn btn-primary btn-sm">Volunteer Now</a>
+        </div>
+        <div class="involve-card purple">
+          <div class="involve-icon">🤝</div>
+          <h3>Partner</h3>
+          <p>Organizations and institutions can collaborate on programs, co-host events, or align missions for greater collective impact.</p>
+          <button class="btn btn-purple btn-sm" onclick="document.getElementById('contactForm').scrollIntoView({behavior:'smooth'})">Discuss Partnership</button>
+        </div>
+        <div class="involve-card gold">
+          <div class="involve-icon">💛</div>
+          <h3>Support & Donate</h3>
+          <p>Help fund programs that train climate advocates and empower girls. Your contribution directly changes young lives.</p>
+          <a href="https://wa.me/237679443906" target="_blank" class="btn btn-gold btn-sm">Donate Today</a>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div id="contactForm" style="margin-top:64px;">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Let's Start a Conversation</h3>
+            <p>Have a question, partnership idea, or just want to say hello? We'd love to hear from you. Reach out through any channel below.</p>
+            <div class="contact-items">
+              <div class="contact-item">
+                <div class="contact-item-icon green">📱</div>
+                <div>
+                  <div class="contact-item-text">+237 679 443 906</div>
+                  <div class="contact-item-label">WhatsApp & Phone</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon green">🌿</div>
+                <div>
+                  <div class="contact-item-text">EcoHub</div>
+                  <div class="contact-item-label">Climate Action · Youth Aged 15–25</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon purple">⚡</div>
+                <div>
+                  <div class="contact-item-text">The Girl Charge</div>
+                  <div class="contact-item-label">Girls Empowerment · Northwest Region</div>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-icon green">📍</div>
+                <div>
+                  <div class="contact-item-text">Cameroon</div>
+                  <div class="contact-item-label">Northwest Region & Beyond</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form">
+            <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--dark);margin-bottom:24px;">Send a Message</h3>
+            <div class="admin-success" id="contact-success">✅ Message sent! We'll get back to you soon.</div>
+            <div class="form-row">
+              <div class="form-group"><label>First Name</label><input type="text" id="cf-fname" placeholder="Your first name"></div>
+              <div class="form-group"><label>Last Name</label><input type="text" id="cf-lname" placeholder="Your last name"></div>
+            </div>
+            <div class="form-group"><label>Email</label><input type="email" id="cf-email" placeholder="your@email.com"></div>
+            <div class="form-group">
+              <label>I'm interested in</label>
+              <select id="cf-interest">
+                <option>Volunteering with EcoHub</option>
+                <option>Joining The Girl Charge</option>
+                <option>Partnership / Collaboration</option>
+                <option>Donation / Funding</option>
+                <option>Media / Press Inquiry</option>
+                <option>General Question</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Message</label><textarea id="cf-message" placeholder="Tell us more about how you'd like to get involved or any questions you have..."></textarea></div>
+            <button class="btn btn-primary" style="width:100%;" onclick="submitContactForm()">Send Message →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="footer-inner" id="footer-contact"><!-- JS --></div></footer>
+</div>
+
+<!-- ═══════════════════ ADMIN LOGIN ═══════════════════ -->
+<div class="page" id="page-admin-login">
+  <div class="admin-login">
+    <div class="login-box">
+      <h2>Admin Panel</h2>
+      <p>Sign in to manage blog posts, update images, and edit site content.</p>
+      <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+      <div class="form-group">
+        <label style="color:var(--soft);">Password</label>
+        <input type="password" id="admin-pass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:var(--white);">
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px;" onclick="doLogin()">Sign In →</button>
+      <p style="text-align:center;margin-top:20px;font-size:0.8rem;color:var(--muted);">
+        <span onclick="showPage('home')" style="cursor:pointer;color:var(--green-light);">← Back to Website</span>
+      </p>
+      <p style="text-align:center;margin-top:10px;font-size:0.75rem;color:rgba(255,255,255,0.2);">Default password: jania2025 (change in admin settings)</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ADMIN PANEL ═══════════════════ -->
+<div class="page" id="page-admin">
+  <div class="admin-panel">
+    <div class="admin-inner">
+      <div class="admin-header">
+        <div>
+          <div class="admin-title">⚙️ Admin Dashboard</div>
+          <div class="admin-subtitle">Manage your website content — blog posts, images, and site info</div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-outline btn-sm" style="color:var(--soft);" onclick="showPage('home')">← View Site</button>
+          <button class="btn btn-danger btn-sm" onclick="doLogout()">Sign Out</button>
+        </div>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('blog')">📝 Blog Posts</button>
+        <button class="admin-tab" onclick="switchAdminTab('images')">🖼️ Images & Logos</button>
+        <button class="admin-tab" onclick="switchAdminTab('profile')">👩🏾 Profile</button>
+        <button class="admin-tab" onclick="switchAdminTab('settings')">🔒 Settings</button>
+      </div>
+
+      <!-- BLOG TAB -->
+      <div class="admin-section active" id="admin-blog">
+        <div class="admin-card">
+          <h3>✏️ Write a New Blog Post</h3>
+          <div class="admin-success" id="blog-success">✅ Blog post published successfully!</div>
+          <div class="form-group">
+            <label>Post Title</label>
+            <input type="text" id="bp-title" placeholder="Enter a compelling title for your post">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Category</label>
+              <select id="bp-cat">
+                <option value="eco">EcoHub — Climate Action</option>
+                <option value="gc">Girl Charge — Empowerment</option>
+                <option value="general">General</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Excerpt (short summary)</label>
+              <input type="text" id="bp-excerpt" placeholder="One or two sentences about this post">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Post Content</label>
+            <textarea id="bp-content" style="min-height:200px;" placeholder="Write your full blog post here. You can use new lines to create paragraphs."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Cover Image (optional)</label>
+            <div class="img-upload-area" onclick="document.getElementById('bp-img-input').click()">
+              <div class="upload-icon">📷</div>
+              <p>Click to upload a cover image for this post</p>
+              <p style="font-size:0.8rem;margin-top:4px;">JPG, PNG, WebP — recommended 1200×630px</p>
+              <input type="file" id="bp-img-input" accept="image/*" onchange="previewBlogImg(event)">
+            </div>
+            <img id="bp-img-preview" class="img-preview" style="display:none;">
+          </div>
+          <button class="btn btn-primary" onclick="publishPost()">🚀 Publish Post</button>
+        </div>
+
+        <div class="admin-card">
+          <h3>📋 All Published Posts</h3>
+          <div class="blog-post-list" id="admin-post-list"></div>
+        </div>
+      </div>
+
+      <!-- IMAGES TAB -->
+      <div class="admin-section" id="admin-images">
+        <div class="admin-card">
+          <h3>🧑🏾 Jania's Hero Photo (Homepage)</h3>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:16px;">This appears on the homepage hero section.</p>
+          <div class="img-upload-area" onclick="document.getElementById('hero-img-input').click()">
+            <div class="upload-icon">📸</div>
+            <p>Click to upload Jania's hero photo</p>
+            <p style="font-size:0.8rem;margin-top:4px;">Portrait orientation recommended — JPG or PNG</p>
+            <input type="file" id="hero-img-input" accept="image/*" onchange="uploadHeroImg(event)">
+          </div>
+          <img id="hero-preview" class="img-preview" style="display:none;">
+        </div>
+
+        <div class="admin-card">
+          <h3>🧑🏾 Jania's About Page Photo</h3>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:16px;">This appears on the About page.</p>
+          <div class="img-upload-area" onclick="document.getElementById('about-img-input').click()">
+            <div class="upload-icon">📸</div>
+            <p>Click to upload photo for About page</p>
+            <input type="file" id="about-img-input" accept="image/*" onchange="uploadAboutImg(event)">
+          </div>
+          <img id="about-preview" class="img-preview" style="display:none;">
+        </div>
+
+        <div class="admin-card">
+          <h3>🌿 EcoHub Logo</h3>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:16px;">Appears throughout the site wherever EcoHub is featured.</p>
+          <div class="img-upload-area" onclick="document.getElementById('eco-logo-input').click()">
+            <div class="upload-icon">🌿</div>
+            <p>Click to upload EcoHub logo</p>
+            <p style="font-size:0.8rem;margin-top:4px;">PNG with transparent background recommended</p>
+            <input type="file" id="eco-logo-input" accept="image/*" onchange="uploadEcoLogo(event)">
+          </div>
+          <img id="eco-logo-preview" class="img-preview" style="display:none;">
+        </div>
+
+        <div class="admin-card">
+          <h3>⚡ Girl Charge Logo</h3>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:16px;">Appears throughout the site wherever Girl Charge is featured.</p>
+          <div class="img-upload-area" onclick="document.getElementById('gc-logo-input').click()">
+            <div class="upload-icon">⚡</div>
+            <p>Click to upload Girl Charge logo</p>
+            <p style="font-size:0.8rem;margin-top:4px;">PNG with transparent background recommended</p>
+            <input type="file" id="gc-logo-input" accept="image/*" onchange="uploadGCLogo(event)">
+          </div>
+          <img id="gc-logo-preview" class="img-preview" style="display:none;">
+        </div>
+
+        <div class="admin-card">
+          <h3>🏢 Partner & Organisation Logos</h3>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:16px;">Upload logos of partner organisations (Plan International, Commonwealth Network, etc.).</p>
+          <div class="img-upload-area" onclick="document.getElementById('partner-logo-input').click()">
+            <div class="upload-icon">🏢</div>
+            <p>Click to upload a partner logo</p>
+            <input type="file" id="partner-logo-input" accept="image/*" multiple onchange="uploadPartnerLogos(event)">
+          </div>
+          <div id="partner-logos-preview" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;"></div>
+        </div>
+      </div>
+
+      <!-- PROFILE TAB -->
+      <div class="admin-section" id="admin-profile">
+        <div class="admin-card">
+          <h3>✏️ Edit Site Content</h3>
+          <div class="admin-success" id="profile-success">✅ Content updated successfully!</div>
+          <div class="form-group">
+            <label>Hero Tagline (homepage)</label>
+            <textarea id="edit-tagline" style="min-height:80px;">Empowering Cameroon's Youth Through Climate Action & Gender Equality — building the next generation of fearless leaders.</textarea>
+          </div>
+          <div class="form-group">
+            <label>Bio (About page — first paragraph)</label>
+            <textarea id="edit-bio" style="min-height:120px;">Yosimbom Jania is a remarkable 21-year-old leader making waves in youth engagement, climate action, and gender equality. With over 7 years of experience in community service, she has established herself as a passionate advocate for girls' rights and climate action across Cameroon and beyond.</textarea>
+          </div>
+          <div class="form-group">
+            <label>Contact Email</label>
+            <input type="email" id="edit-email" placeholder="your@email.com">
+          </div>
+          <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+        </div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="admin-section" id="admin-settings">
+        <div class="admin-card">
+          <h3>🔒 Change Admin Password</h3>
+          <div class="admin-success" id="settings-success">✅ Password updated successfully!</div>
+          <div class="form-group">
+            <label>Current Password</label>
+            <input type="password" id="curr-pass" placeholder="Enter current password">
+          </div>
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" id="new-pass" placeholder="Enter new password (min. 6 characters)">
+          </div>
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" id="confirm-pass" placeholder="Confirm your new password">
+          </div>
+          <div class="login-error" id="pass-error" style="display:none;"></div>
+          <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+        </div>
+        <div class="admin-card">
+          <h3>ℹ️ About This Website</h3>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;">This website was designed and developed by <strong>Ntein Praises</strong>.<br>
+          For technical support, customisation, or updates, visit:<br>
+          <a href="https://nteinpraises.vercel.app" target="_blank" style="color:var(--green);font-weight:600;">nteinpraises.vercel.app</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/237679443906" target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+<script src="index.js">
+
+</script>
+</body>
+</html>
