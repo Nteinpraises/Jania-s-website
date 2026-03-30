@@ -439,9 +439,12 @@ function footerHTML() {
       <div class="footer-brand">
         <div class="footer-logo">Jania<span>.</span></div>
         <p class="footer-desc">Uniting two powerful missions — EcoHub and The Girl Charge — to build a better future for Cameroon's youth through climate action and gender equality.</p>
-        <div class="footer-social">
-          <a href="https://wa.me/237679443906" target="_blank" class="social-btn" title="WhatsApp">💬</a>
-        </div>
+       <div class="footer-social">
+         <a href="YOUR_FACEBOOK_URL" target="_blank" class="social-btn" title="Facebook"><i class="bi bi-facebook">F</i></a>
+          <a href="YOUR_INSTAGRAM_URL" target="_blank" class="social-btn" title="Instagram"><i class="bi bi-instagram">I</i></a>
+          <a href="YOUR_YOUTUBE_URL" target="_blank" class="social-btn" title="YouTube"><i class="bi bi-youtube">U</i></a>
+          <a href="https://wa.me/237679443906" target="_blank" class="social-btn" title="WhatsApp"><i class="bi bi-whatsapp">W</i></a>
+       </div>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>

@@ -1112,3 +1112,17 @@ footer {
 
 /* Scrolled nav adjustment */
 .page-hero, .hero { padding-top: 120px; }
+
+.partners-strip { overflow: hidden; padding: 40px 0; background: var(--white); border-top: 1px solid rgba(0,0,0,0.06); }
+.partners-track {
+  display: flex; gap: 48px; align-items: center;
+  animation: scroll-logos 25s linear infinite;
+  width: max-content;
+}
+.partners-track:hover { animation-play-state: paused; }
+.partners-track img { height: 48px; width: auto; opacity: 0.55; filter: grayscale(100%); transition: all 0.3s; }
+.partners-track img:hover { opacity: 1; filter: grayscale(0%); }
+@keyframes scroll-logos {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
