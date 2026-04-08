@@ -1,20 +1,17 @@
 // ══════════════════════════════════════════════════════
 //  FIREBASE SETUP
-//  This file uses ES Modules — make sure your index.html
-//  script tag reads:  <script type="module" src="index.js">
+//  index.html script tag must be:
+//  <script type="module" src="index.js"></script>
 // ══════════════════════════════════════════════════════
 
-import { initializeApp }      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAnalytics }       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAnalytics }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 import {
   getFirestore, collection, addDoc, getDocs,
   deleteDoc, doc, updateDoc, orderBy, query
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-import {
-  getStorage, ref, uploadString, getDownloadURL
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-// ── Your Firebase config (safe to keep here for a plain HTML site)
+// ── Firebase config
 const firebaseConfig = {
   apiKey:            "AIzaSyCxywiQG69yFiEYqjAnRdthpWmT6nZGv8E",
   authDomain:        "jania-s-project.firebaseapp.com",
@@ -28,17 +25,16 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const analytics   = getAnalytics(firebaseApp);
 const db          = getFirestore(firebaseApp);
-const storage     = getStorage(firebaseApp);
 
 // ══════════════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════════════
 let adminPassword     = localStorage.getItem('adminPass') || 'jania2025';
 let isLoggedIn        = false;
-let blogPosts         = [];          // filled from Firestore on load
+let blogPosts         = [];
 let currentBlogFilter = 'all';
 let editingPostId     = null;
-let bpImgData         = null;        // base64 of selected cover image
+let bpImgData         = null;
 
 // ══════════════════════════════════════════════════════
 //  FIRESTORE — BLOG POSTS
@@ -68,17 +64,56 @@ async function deletePostFromDB(id) {
 }
 
 // ══════════════════════════════════════════════════════
-//  FIREBASE STORAGE — IMAGES
+//  FIRESTORE — SITE IMAGES (no Storage, no CORS needed)
+//  Images are compressed to base64 and saved in Firestore
+//  so every visitor on every device sees the same images
 // ══════════════════════════════════════════════════════
-async function uploadImageToStorage(path, base64Data) {
+async function saveSiteImageToDB(key, base64Data) {
   try {
-    const storageRef = ref(storage, path);
-    await uploadString(storageRef, base64Data, 'data_url');
-    return await getDownloadURL(storageRef);
+    const snapshot = await getDocs(collection(db, "siteImages"));
+    const existing = snapshot.docs.find(d => d.data().key === key);
+    if (existing) {
+      await updateDoc(doc(db, "siteImages", existing.id), { key, data: base64Data });
+    } else {
+      await addDoc(collection(db, "siteImages"), { key, data: base64Data });
+    }
+    const cache   = JSON.parse(localStorage.getItem('siteImages') || '{}');
+    cache[key]    = base64Data;
+    localStorage.setItem('siteImages', JSON.stringify(cache));
   } catch (e) {
-    console.error("Image upload error:", e);
-    return null;
+    console.error("Error saving site image:", e);
   }
+}
+
+async function loadSiteImagesFromDB() {
+  try {
+    const snapshot = await getDocs(collection(db, "siteImages"));
+    const cache    = JSON.parse(localStorage.getItem('siteImages') || '{}');
+    snapshot.docs.forEach(d => {
+      const { key, data } = d.data();
+      if (key && data) cache[key] = data;
+    });
+    localStorage.setItem('siteImages', JSON.stringify(cache));
+  } catch (e) {
+    console.error("Error loading site images:", e);
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  IMAGE COMPRESSION
+//  Keeps images small so Firestore stays fast
+// ══════════════════════════════════════════════════════
+function compressImage(base64, maxWidth, quality, callback) {
+  const img  = new Image();
+  img.onload = () => {
+    const scale   = Math.min(1, maxWidth / img.width);
+    const canvas  = document.createElement('canvas');
+    canvas.width  = img.width  * scale;
+    canvas.height = img.height * scale;
+    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+    callback(canvas.toDataURL('image/jpeg', quality));
+  };
+  img.src = base64;
 }
 
 // ══════════════════════════════════════════════════════
@@ -96,10 +131,8 @@ function showPage(page) {
     const nav = document.getElementById('nav-' + p);
     if (nav) nav.classList.remove('active');
   });
-
   const target = document.getElementById('page-' + page);
   if (target) { target.classList.add('active'); window.scrollTo(0, 0); }
-
   const navEl = document.getElementById('nav-' + page);
   if (navEl) navEl.classList.add('active');
 
@@ -156,14 +189,14 @@ function changePassword() {
 
   adminPassword = nw;
   localStorage.setItem('adminPass', nw);
-  document.getElementById('curr-pass').value   = '';
-  document.getElementById('new-pass').value    = '';
+  document.getElementById('curr-pass').value    = '';
+  document.getElementById('new-pass').value     = '';
   document.getElementById('confirm-pass').value = '';
   showSuccess('settings-success');
 }
 
 // ══════════════════════════════════════════════════════
-//  BLOG RENDERING HELPERS
+//  BLOG RENDERING
 // ══════════════════════════════════════════════════════
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-GB', {
@@ -172,9 +205,9 @@ function formatDate(iso) {
 }
 
 function catLabel(cat) {
-  if (cat === 'eco') return { label: 'EcoHub',      cls: 'eco' };
-  if (cat === 'gc')  return { label: 'Girl Charge',  cls: 'gc' };
-  return                      { label: 'General',     cls: 'general' };
+  if (cat === 'eco') return { label: 'EcoHub',     cls: 'eco' };
+  if (cat === 'gc')  return { label: 'Girl Charge', cls: 'gc' };
+  return                     { label: 'General',    cls: 'general' };
 }
 
 function bgClass(cat) {
@@ -189,7 +222,6 @@ function blogCardHTML(post) {
   const imgHTML = post.img
     ? `<img src="${post.img}" class="blog-img" alt="${post.title}">`
     : `<div class="blog-img-placeholder ${bgClass(post.category)}">📰</div>`;
-
   return `
     <div class="blog-card" onclick="openPost('${post.id}')">
       ${imgHTML}
@@ -220,7 +252,6 @@ function renderBlogPage() {
   const posts = currentBlogFilter === 'all'
     ? blogPosts
     : blogPosts.filter(p => p.category === currentBlogFilter);
-
   el.innerHTML = posts.length === 0
     ? `<div class="blog-empty" style="grid-column:1/-1;"><div class="icon">📝</div><h3>No posts in this category</h3><p>Posts will appear here once published.</p></div>`
     : posts.map(p => blogCardHTML(p)).join('');
@@ -269,17 +300,19 @@ function openPost(id) {
 }
 
 // ══════════════════════════════════════════════════════
-//  ADMIN — BLOG MANAGEMENT
+//  ADMIN — BLOG
 // ══════════════════════════════════════════════════════
 function previewBlogImg(e) {
   const file = e.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
+  const reader  = new FileReader();
   reader.onload = ev => {
-    bpImgData = ev.target.result;
-    const prev = document.getElementById('bp-img-preview');
-    prev.src = bpImgData;
-    prev.style.display = 'block';
+    compressImage(ev.target.result, 800, 0.7, compressed => {
+      bpImgData              = compressed;
+      const prev             = document.getElementById('bp-img-preview');
+      prev.src               = compressed;
+      prev.style.display     = 'block';
+    });
   };
   reader.readAsDataURL(file);
 }
@@ -295,42 +328,32 @@ async function publishPost() {
     return;
   }
 
-  const btn = document.querySelector('[onclick="publishPost()"]');
-  btn.textContent = 'Uploading...';
+  const btn       = document.querySelector('[onclick="publishPost()"]');
+  btn.textContent = 'Publishing...';
   btn.disabled    = true;
 
   try {
-    // Upload cover image to Firebase Storage if one was chosen
-    let imgUrl = null;
-    if (bpImgData) {
-      imgUrl = await uploadImageToStorage(`blog-images/${Date.now()}.jpg`, bpImgData);
-    }
-
     if (editingPostId) {
       const existing = blogPosts.find(p => p.id === editingPostId);
       await updatePostInDB(editingPostId, {
         title, category: cat, excerpt, content,
-        img: imgUrl || existing?.img || null
+        img: bpImgData || existing?.img || null
       });
       editingPostId = null;
     } else {
       await savePostToDB({
         title, category: cat, excerpt, content,
         date: new Date().toISOString(),
-        img: imgUrl || null
+        img:  bpImgData || null
       });
     }
 
-    // Reload posts from Firestore so everyone sees the update instantly
     await loadPostsFromDB();
-
-    // Reset the form
-    document.getElementById('bp-title').value       = '';
-    document.getElementById('bp-excerpt').value     = '';
-    document.getElementById('bp-content').value     = '';
+    document.getElementById('bp-title').value          = '';
+    document.getElementById('bp-excerpt').value        = '';
+    document.getElementById('bp-content').value        = '';
     document.getElementById('bp-img-preview').style.display = 'none';
     bpImgData = null;
-
     showSuccess('blog-success');
     renderAdminPostList();
     renderHomeBlog();
@@ -347,12 +370,10 @@ async function publishPost() {
 function renderAdminPostList() {
   const el = document.getElementById('admin-post-list');
   if (!el) return;
-
   if (blogPosts.length === 0) {
     el.innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px;">No posts yet. Write your first post above!</p>';
     return;
   }
-
   el.innerHTML = blogPosts.map(p => {
     const c = catLabel(p.category);
     return `<div class="blog-post-item">
@@ -374,19 +395,16 @@ function renderAdminPostList() {
 function editPost(id) {
   const post = blogPosts.find(p => p.id === id);
   if (!post) return;
-
   document.getElementById('bp-title').value   = post.title;
   document.getElementById('bp-cat').value     = post.category;
   document.getElementById('bp-excerpt').value = post.excerpt || '';
   document.getElementById('bp-content').value = post.content;
-
   if (post.img) {
-    const prev  = document.getElementById('bp-img-preview');
-    prev.src    = post.img;
+    const prev         = document.getElementById('bp-img-preview');
+    prev.src           = post.img;
     prev.style.display = 'block';
-    bpImgData   = null; // don't re-upload the existing image unless changed
+    bpImgData          = null;
   }
-
   editingPostId = id;
   document.querySelector('[onclick="publishPost()"]').textContent = 'Update Post';
   document.getElementById('bp-title').scrollIntoView({ behavior: 'smooth' });
@@ -405,115 +423,92 @@ async function deletePost(id) {
 }
 
 // ══════════════════════════════════════════════════════
-//  IMAGE UPLOADS — FIREBASE STORAGE
+//  IMAGE UPLOADS — base64 → Firestore (no Storage/CORS)
 // ══════════════════════════════════════════════════════
 function readFile(file, cb) {
-  const reader = new FileReader();
+  const reader  = new FileReader();
   reader.onload = e => cb(e.target.result);
   reader.readAsDataURL(file);
 }
 
-// Generic handler — uploads to Storage, saves URL to localStorage
-async function handleImageUpload(file, storagePath, previewId, storageKey) {
-  readFile(file, async base64 => {
-    const url = await uploadImageToStorage(storagePath, base64);
-    if (!url) { alert('Image upload failed. Check your Firebase Storage rules.'); return; }
-
-    const images = JSON.parse(localStorage.getItem('siteImages') || '{}');
-    images[storageKey] = url;
-    localStorage.setItem('siteImages', JSON.stringify(images));
-
-    const prev = document.getElementById(previewId);
-    if (prev) { prev.src = url; prev.style.display = 'block'; }
-    applyStoredImages();
+function handleImageUpload(file, previewId, storageKey, maxWidth) {
+  readFile(file, raw => {
+    compressImage(raw, maxWidth || 1200, 0.8, async compressed => {
+      await saveSiteImageToDB(storageKey, compressed);
+      const prev = document.getElementById(previewId);
+      if (prev) { prev.src = compressed; prev.style.display = 'block'; }
+      applyStoredImages();
+    });
   });
 }
 
-function uploadHeroImg(e) {
-  const file = e.target.files[0]; if (!file) return;
-  handleImageUpload(file, `site-images/hero-${Date.now()}.jpg`, 'hero-preview', 'hero');
-}
-
-function uploadAboutImg(e) {
-  const file = e.target.files[0]; if (!file) return;
-  handleImageUpload(file, `site-images/about-${Date.now()}.jpg`, 'about-preview', 'about');
-}
-
-function uploadEcoLogo(e) {
-  const file = e.target.files[0]; if (!file) return;
-  handleImageUpload(file, `site-images/eco-logo-${Date.now()}.png`, 'eco-logo-preview', 'ecoLogo');
-}
-
-function uploadGCLogo(e) {
-  const file = e.target.files[0]; if (!file) return;
-  handleImageUpload(file, `site-images/gc-logo-${Date.now()}.png`, 'gc-logo-preview', 'gcLogo');
-}
+function uploadHeroImg(e)  { const f = e.target.files[0]; if (!f) return; handleImageUpload(f, 'hero-preview',     'hero',    1200); }
+function uploadAboutImg(e) { const f = e.target.files[0]; if (!f) return; handleImageUpload(f, 'about-preview',    'about',   1000); }
+function uploadEcoLogo(e)  { const f = e.target.files[0]; if (!f) return; handleImageUpload(f, 'eco-logo-preview', 'ecoLogo',  400); }
+function uploadGCLogo(e)   { const f = e.target.files[0]; if (!f) return; handleImageUpload(f, 'gc-logo-preview',  'gcLogo',   400); }
 
 function uploadPartnerLogos(e) {
-  const files  = Array.from(e.target.files);
-  const images = JSON.parse(localStorage.getItem('siteImages') || '{}');
-  if (!images.partnerLogos) images.partnerLogos = [];
-  let pending  = files.length;
-
+  const files = Array.from(e.target.files);
+  const cache = JSON.parse(localStorage.getItem('siteImages') || '{}');
+  if (!cache.partnerLogos) cache.partnerLogos = [];
+  let pending = files.length;
   files.forEach((file, i) => {
-    readFile(file, async base64 => {
-      const url = await uploadImageToStorage(`site-images/partner-${Date.now()}-${i}.png`, base64);
-      if (url) images.partnerLogos.push(url);
-      pending--;
-      if (pending === 0) {
-        localStorage.setItem('siteImages', JSON.stringify(images));
-        renderPartnerLogoPreviews();
-      }
+    readFile(file, raw => {
+      compressImage(raw, 300, 0.8, async compressed => {
+        cache.partnerLogos.push(compressed);
+        pending--;
+        if (pending === 0) {
+          await saveSiteImageToDB('partnerLogos', JSON.stringify(cache.partnerLogos));
+          renderPartnerLogoPreviews();
+        }
+      });
     });
   });
 }
 
 function renderPartnerLogoPreviews() {
-  const el     = document.getElementById('partner-logos-preview');
-  const images = JSON.parse(localStorage.getItem('siteImages') || '{}');
-  if (!el || !images.partnerLogos) return;
-
-  el.innerHTML = images.partnerLogos.map((src, i) => `
+  const el    = document.getElementById('partner-logos-preview');
+  const cache = JSON.parse(localStorage.getItem('siteImages') || '{}');
+  if (!el || !cache.partnerLogos) return;
+  el.innerHTML = cache.partnerLogos.map((src, i) => `
     <div style="position:relative;">
       <img src="${src}" style="width:80px;height:80px;object-fit:contain;border:1px solid rgba(0,0,0,0.1);border-radius:10px;background:white;padding:6px;">
       <button onclick="removePartnerLogo(${i})" style="position:absolute;top:-6px;right:-6px;background:#c00;color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;line-height:1;">×</button>
-    </div>`
-  ).join('');
+    </div>`).join('');
 }
 
-function removePartnerLogo(idx) {
-  const images = JSON.parse(localStorage.getItem('siteImages') || '{}');
-  images.partnerLogos.splice(idx, 1);
-  localStorage.setItem('siteImages', JSON.stringify(images));
+async function removePartnerLogo(idx) {
+  const cache = JSON.parse(localStorage.getItem('siteImages') || '{}');
+  cache.partnerLogos.splice(idx, 1);
+  await saveSiteImageToDB('partnerLogos', JSON.stringify(cache.partnerLogos));
   renderPartnerLogoPreviews();
 }
 
 function applyStoredImages() {
-  const images = JSON.parse(localStorage.getItem('siteImages') || '{}');
-
-  if (images.hero) {
+  const cache = JSON.parse(localStorage.getItem('siteImages') || '{}');
+  if (cache.hero) {
     const wrap = document.getElementById('hero-img-wrap');
-    if (wrap) wrap.innerHTML = `<img src="${images.hero}" class="hero-img" alt="Jania">`;
+    if (wrap) wrap.innerHTML = `<img src="${cache.hero}" class="hero-img" alt="Jania">`;
   }
-  if (images.about) {
+  if (cache.about) {
     const frame = document.getElementById('about-img-frame');
-    if (frame) frame.innerHTML = `<img src="${images.about}" class="founder-img" alt="Jania">`;
+    if (frame) frame.innerHTML = `<img src="${cache.about}" class="founder-img" alt="Jania">`;
   }
-  if (images.ecoLogo) {
+  if (cache.ecoLogo) {
     ['eco-logo-mini','eco-logo-card'].forEach(id => {
       const el = document.getElementById(id);
-      if (el) el.innerHTML = `<img src="${images.ecoLogo}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`;
+      if (el) el.innerHTML = `<img src="${cache.ecoLogo}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`;
     });
     const card = document.querySelector('.org-card.eco .org-card-logo-placeholder');
-    if (card) card.innerHTML = `<img src="${images.ecoLogo}" style="width:100%;height:100%;object-fit:contain;">`;
+    if (card) card.innerHTML = `<img src="${cache.ecoLogo}" style="width:100%;height:100%;object-fit:contain;">`;
   }
-  if (images.gcLogo) {
+  if (cache.gcLogo) {
     ['gc-logo-mini','gc-logo-card'].forEach(id => {
       const el = document.getElementById(id);
-      if (el) el.innerHTML = `<img src="${images.gcLogo}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`;
+      if (el) el.innerHTML = `<img src="${cache.gcLogo}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`;
     });
     const card = document.querySelector('.org-card.gc .org-card-logo-placeholder');
-    if (card) card.innerHTML = `<img src="${images.gcLogo}" style="width:100%;height:100%;object-fit:contain;">`;
+    if (card) card.innerHTML = `<img src="${cache.gcLogo}" style="width:100%;height:100%;object-fit:contain;">`;
   }
 }
 
@@ -522,12 +517,12 @@ function applyStoredImages() {
 // ══════════════════════════════════════════════════════
 function renderAdminPanel() {
   renderAdminPostList();
-  const images = JSON.parse(localStorage.getItem('siteImages') || '{}');
-  if (images.hero)    { const el = document.getElementById('hero-preview');     if (el) { el.src = images.hero;    el.style.display = 'block'; } }
-  if (images.about)   { const el = document.getElementById('about-preview');    if (el) { el.src = images.about;   el.style.display = 'block'; } }
-  if (images.ecoLogo) { const el = document.getElementById('eco-logo-preview'); if (el) { el.src = images.ecoLogo; el.style.display = 'block'; } }
-  if (images.gcLogo)  { const el = document.getElementById('gc-logo-preview');  if (el) { el.src = images.gcLogo;  el.style.display = 'block'; } }
-  if (images.partnerLogos?.length) renderPartnerLogoPreviews();
+  const cache = JSON.parse(localStorage.getItem('siteImages') || '{}');
+  if (cache.hero)    { const el = document.getElementById('hero-preview');     if (el) { el.src = cache.hero;    el.style.display = 'block'; } }
+  if (cache.about)   { const el = document.getElementById('about-preview');    if (el) { el.src = cache.about;   el.style.display = 'block'; } }
+  if (cache.ecoLogo) { const el = document.getElementById('eco-logo-preview'); if (el) { el.src = cache.ecoLogo; el.style.display = 'block'; } }
+  if (cache.gcLogo)  { const el = document.getElementById('gc-logo-preview');  if (el) { el.src = cache.gcLogo;  el.style.display = 'block'; } }
+  if (cache.partnerLogos?.length) renderPartnerLogoPreviews();
 }
 
 function switchAdminTab(tab) {
@@ -538,7 +533,7 @@ function switchAdminTab(tab) {
 }
 
 // ══════════════════════════════════════════════════════
-//  CONTACT FORM
+//  CONTACT & PROFILE
 // ══════════════════════════════════════════════════════
 function submitContactForm() {
   const name  = document.getElementById('cf-fname').value.trim();
@@ -550,9 +545,7 @@ function submitContactForm() {
   });
 }
 
-function saveProfile() {
-  showSuccess('profile-success');
-}
+function saveProfile() { showSuccess('profile-success'); }
 
 // ══════════════════════════════════════════════════════
 //  HELPERS
@@ -619,35 +612,12 @@ function renderFooters() {
 }
 
 // ══════════════════════════════════════════════════════
-//  INIT — runs once when the page loads
+//  INIT
 // ══════════════════════════════════════════════════════
 window.addEventListener('load', async () => {
-  await loadPostsFromDB();   // fetch posts from Firestore — everyone sees the same posts
+  await loadSiteImagesFromDB(); // pull site images from Firestore into local cache
+  await loadPostsFromDB();      // pull blog posts from Firestore
   renderFooters();
   applyStoredImages();
   renderHomeBlog();
 });
-
-// ══════════════════════════════════════════════════════
-//  EXPOSE FUNCTIONS TO HTML (required for type="module")
-// ══════════════════════════════════════════════════════
-window.showPage         = showPage;
-window.toggleMobile     = toggleMobile;
-window.doLogin          = doLogin;
-window.doLogout         = doLogout;
-window.changePassword   = changePassword;
-window.filterBlog       = filterBlog;
-window.openPost         = openPost;
-window.publishPost      = publishPost;
-window.editPost         = editPost;
-window.deletePost       = deletePost;
-window.switchAdminTab   = switchAdminTab;
-window.submitContactForm = submitContactForm;
-window.saveProfile      = saveProfile;
-window.previewBlogImg   = previewBlogImg;
-window.uploadHeroImg    = uploadHeroImg;
-window.uploadAboutImg   = uploadAboutImg;
-window.uploadEcoLogo    = uploadEcoLogo;
-window.uploadGCLogo     = uploadGCLogo;
-window.uploadPartnerLogos = uploadPartnerLogos;
-window.removePartnerLogo  = removePartnerLogo;
