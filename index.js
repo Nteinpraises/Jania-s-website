@@ -567,9 +567,9 @@ function footerHTML() {
         <div class="footer-logo">Jania<span>.</span></div>
         <p class="footer-desc">Uniting two powerful missions — EcoHub and The Girl Charge — to build a better future for Cameroon's youth through climate action and gender equality.</p>
         <div class="footer-social">
-          <a href="YOUR_FACEBOOK_URL"  target="_blank" class="social-btn" title="Facebook">F</a>
-          <a href="YOUR_INSTAGRAM_URL" target="_blank" class="social-btn" title="Instagram">I</a>
-          <a href="YOUR_YOUTUBE_URL"   target="_blank" class="social-btn" title="YouTube">U</a>
+          <a href="https://www.facebook.com/profile.php?id=100085923873693"  target="_blank" class="social-btn" title="Facebook">F</a>
+          <a href="https://www.instagram.com/yosimbom_jania?igsh=d3JzNWVzYzRrcDFp" target="_blank" class="social-btn" title="Instagram">I</a>
+          <a href="https://www.linkedin.com/in/jania-ney-yosimbom-2a83a124a/"   target="_blank" class="social-btn" title="LinkedIn">L</a>
           <a href="https://wa.me/237679443906" target="_blank" class="social-btn" title="WhatsApp">W</a>
         </div>
       </div>
