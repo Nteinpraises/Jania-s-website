@@ -600,7 +600,7 @@ function footerHTML() {
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">© ${new Date().getFullYear()} Yosimbom Jania · EcoHub · The Girl Charge. All rights reserved.</div>
-      <div class="footer-dev">Designed & built by <a href="https://nteinpraises.vercel.app" target="_blank">Ntein Praises</a></div>
+      <div class="footer-dev">Designed with ❤️ by <a href="https://nteinpraises.vercel.app" target="_blank">Ntein Praises</a></div>
     </div>`;
 }
 
