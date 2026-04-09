@@ -621,3 +621,27 @@ window.addEventListener('load', async () => {
   applyStoredImages();
   renderHomeBlog();
 });
+
+// ══════════════════════════════════════════════════════
+//  EXPOSE FUNCTIONS TO HTML (required for type="module")
+// ══════════════════════════════════════════════════════
+window.showPage         = showPage;
+window.toggleMobile     = toggleMobile;
+window.doLogin          = doLogin;
+window.doLogout         = doLogout;
+window.changePassword   = changePassword;
+window.filterBlog       = filterBlog;
+window.openPost         = openPost;
+window.publishPost      = publishPost;
+window.editPost         = editPost;
+window.deletePost       = deletePost;
+window.switchAdminTab   = switchAdminTab;
+window.submitContactForm = submitContactForm;
+window.saveProfile      = saveProfile;
+window.previewBlogImg   = previewBlogImg;
+window.uploadHeroImg    = uploadHeroImg;
+window.uploadAboutImg   = uploadAboutImg;
+window.uploadEcoLogo    = uploadEcoLogo;
+window.uploadGCLogo     = uploadGCLogo;
+window.uploadPartnerLogos = uploadPartnerLogos;
+window.removePartnerLogo  = removePartnerLogo;
