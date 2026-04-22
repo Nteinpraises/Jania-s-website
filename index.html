@@ -656,10 +656,10 @@
       <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
       <div class="form-group">
         <label style="color:var(--soft);">Password</label>
-        <input type="password" id="admin-pass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:var(--white);">
+        <input type="password" id="admin-pass" autocomplete="new-password" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:var(--white);">
       </div>
       <button class="btn btn-primary" style="width:100%;margin-top:8px;" onclick="doLogin()">Sign In →</button>
-      <p style="text-align:center;margin-top:20px;font-size:0.8rem;color:var(--muted);">
+      
         <span onclick="showPage('home')" style="cursor:pointer;color:var(--green-light);">← Back to Website</span>
       </p>
       <p style="text-align:center;margin-top:10px;font-size:0.75rem;color:rgba(255,255,255,0.2);">Default password: jania2025 (change in admin settings)</p>
@@ -819,24 +819,7 @@
 
       <!-- SETTINGS TAB -->
       <div class="admin-section" id="admin-settings">
-        <div class="admin-card">
-          <h3>Change Admin Password</h3>
-          <div class="admin-success" id="settings-success">✅ Password updated successfully!</div>
-          <div class="form-group">
-            <label>Current Password</label>
-            <input type="password" id="curr-pass" placeholder="Enter current password">
-          </div>
-          <div class="form-group">
-            <label>New Password</label>
-            <input type="password" id="new-pass" placeholder="Enter new password (min. 6 characters)">
-          </div>
-          <div class="form-group">
-            <label>Confirm New Password</label>
-            <input type="password" id="confirm-pass" placeholder="Confirm your new password">
-          </div>
-          <div class="login-error" id="pass-error" style="display:none;"></div>
-          <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
-        </div>
+       
         <div class="admin-card">
           <h3>ℹ About This Website</h3>
           <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;">This website was designed and developed by <strong>Ntein Praises</strong>.<br>
