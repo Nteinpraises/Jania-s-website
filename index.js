@@ -151,14 +151,43 @@ function toggleMobile() {
 //  AUTH
 // ══════════════════════════════════════════════════════
 function doLogin() {
+  const lockoutUntil = parseInt(localStorage.getItem('loginLockout') || '0');
+  const now = Date.now();
+
+  if (now < lockoutUntil) {
+    const mins = Math.ceil((lockoutUntil - now) / 60000);
+    const errEl = document.getElementById('login-error');
+    errEl.textContent = `Too many failed attempts. Please try again in ${mins} minute(s).`;
+    errEl.classList.add('show');
+    document.getElementById('admin-pass').value = '';
+    return;
+  }
+
   const pass = document.getElementById('admin-pass').value;
+  const errEl = document.getElementById('login-error');
+
   if (pass === adminPassword) {
     isLoggedIn = true;
+    localStorage.removeItem('loginAttempts');
+    localStorage.removeItem('loginLockout');
     document.getElementById('admin-pass').value = '';
-    document.getElementById('login-error').classList.remove('show');
+    errEl.classList.remove('show');
     showPage('admin');
   } else {
-    document.getElementById('login-error').classList.add('show');
+    let attempts = parseInt(localStorage.getItem('loginAttempts') || '0') + 1;
+    localStorage.setItem('loginAttempts', String(attempts));
+
+    if (attempts >= 5) {
+      const lockUntil = Date.now() + 60 * 60 * 1000;
+      localStorage.setItem('loginLockout', String(lockUntil));
+      localStorage.removeItem('loginAttempts');
+      errEl.textContent = 'Too many failed attempts. Admin access locked for 1 hour.';
+    } else {
+      errEl.textContent = `Incorrect password. ${5 - attempts} attempt(s) remaining before lockout.`;
+    }
+
+    errEl.classList.add('show');
+    document.getElementById('admin-pass').value = '';
   }
 }
 
