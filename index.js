@@ -29,7 +29,7 @@ const db          = getFirestore(firebaseApp);
 // ══════════════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════════════
-let adminPassword     = localStorage.getItem('adminPass') || 'jania2025';
+const adminPassword = 'jania2025';
 let isLoggedIn        = false;
 let blogPosts         = [];
 let currentBlogFilter = 'all';
